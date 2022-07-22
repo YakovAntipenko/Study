@@ -1,0 +1,30 @@
+version: '3'
+services:
+   nginx: 
+      image: nginx:1.21.6-alpine
+      networks:
+         - nodeappnetwork
+      volumes: 
+      - ./nginx:/usr/share/nginx/html
+      restart: always
+      tty: true 
+      ports:
+         - "80:80"
+         - "443:443"
+         
+   nodeapp:
+      build: .
+      depends_on:
+         - nginx
+      volumes:
+         - app-volume:/home/node/app/
+      restart: always
+      
+      ports:
+         - "4100:4100"
+      networks:
+         - nodeappnetwork
+networks:
+   nodeappnetwork:
+volumes:
+    app-volume:

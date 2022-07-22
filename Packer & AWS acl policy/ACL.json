@@ -1,0 +1,24 @@
+{
+    "Version": "20121017",
+    "Id": "Policy1650077953590",
+    "Statement": [
+        {
+            "Sid": "AllowGetObject",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::507676015690:user/s3-master-user"
+            },
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::yakovantipenko-hillel-homework/lesson12/"
+        },
+        {
+            "Sid": "ListBucket",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::507676015690:user/s3-master-user"
+            },
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::yakovantipenko-hillel-homework"
+        }
+    ]
+}

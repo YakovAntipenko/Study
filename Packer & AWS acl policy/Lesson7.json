@@ -1,0 +1,22 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "us-east-1",
+      "ami_name": "Lesson7-homework",
+      "source_ami": "ami-03ededff12e34e59e",
+      "instance_type": "t2.micro",
+      "ssh_username": "ec2-user"
+          }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sleep 30",
+        "sudo yum update"
+
+      ]
+    }
+  ]
+}

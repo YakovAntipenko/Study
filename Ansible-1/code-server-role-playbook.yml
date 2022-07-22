@@ -1,0 +1,10 @@
+---
+- name: Install code-server by role
+  hosts: all
+  become: yes
+
+
+  roles: 
+    - name: pallxk.code_server
+    
+      

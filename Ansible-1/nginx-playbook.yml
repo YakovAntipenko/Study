@@ -1,0 +1,13 @@
+---
+- name: Installing Nginx
+  hosts: all
+  become: yes
+
+
+  tasks: 
+  - name: Install Nginx WebServer
+    apt: name=nginx state=latest
+
+
+  - name: Start and Enable Nginx
+    service: name=nginx state=restarted

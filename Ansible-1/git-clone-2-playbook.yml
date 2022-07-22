@@ -1,0 +1,18 @@
+---
+ - hosts: all
+   become: yes
+   tasks:
+   - name: Clone a github repository
+     git:
+       repo: https://github.com/YakovAntipenko/Lesson88.git
+       dest: /home/ubuntu/Python/
+       clone: yes
+       update: yes
+   - name: Install requirements.txt
+     pip:
+       state: latest
+       requirements: /home/ubuntu/Python/requirements.txt
+       #virtualenv: /home/ubuntu/Python/env
+       #virtualenv_site_packages: yes
+       #virtualenv_python: 3.8
+      

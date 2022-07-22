@@ -1,0 +1,33 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Build node-app
+      docker_image: 
+        name: nodeapp
+        source: build 
+        build: 
+          path: /home/repo/
+       
+      
+
+    - name: Run docker-compose
+      docker_compose:
+       project_src: /home/repo/
+       files: docker-compose.yml
+       restarted: yes
+
+  
+    - name: Responce codes
+      uri:  
+        url: "http://{{  ansible_host }}"
+        #url: http://{{  public_ip  }} 
+        method: GET
+        status_code: 200
+      register: result
+      
+    
+    - debug: 
+        #var: result
+        msg: "The {{ result.url }} returned {{ result.status }} status code"

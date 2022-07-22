@@ -1,0 +1,8 @@
+---
+  - hosts: all
+    become: yes
+
+    tasks: 
+     - name: Down docker containers
+       shell: docker stop $(docker ps -a -q) 
+  

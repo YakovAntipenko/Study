@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Installing extensions
+      shell: code-server --install-extension ms-python.python 
+

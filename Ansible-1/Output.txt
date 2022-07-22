@@ -1,0 +1,39 @@
+----- part1 
+
+1. Docker 
+Linux | CHANGED | rc=0 >>
+Docker version 20.10.7, build f0df350
+
+2. Git 
+Linux | CHANGED | rc=0 >>
+git version 2.34.1
+    /home/repo/
+
+3. Docker-compose and build
+Linux | CHANGED | rc=0 >>
+docker-compose version 1.29.2, build unknown
+
+3. Nodeapp - http://18.234.194.204:4100/
+   Nginx - http://18.234.194.204:80/
+
+4. Output msg
+TASK [debug] **************************************************************************************************************************************************************************
+ok: [Linux] => {
+    "msg": "The http://18.234.194.204 returned 200 status code"
+
+
+----- part2
+
+1. Code-server - http://18.234.194.204:8080/ made by role
+
+2. Git clone python proj
+   /home/ubuntu/Python/Project
+
+3. Interpreter 
+Linux | CHANGED | rc=0 >>
+python3.10 is already the newest version (3.10.4-3).
+
+----- part3
+1. Extensions as ms-python installed by shell command from coder/code-server-role
+
+

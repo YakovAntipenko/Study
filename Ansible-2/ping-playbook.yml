@@ -1,0 +1,10 @@
+---
+- name: Ping my servers
+  hosts: SQL
+  become: yes
+
+  tasks:
+
+  - name: Ping
+    ping: 
+       data: pong

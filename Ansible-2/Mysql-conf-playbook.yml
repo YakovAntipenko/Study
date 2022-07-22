@@ -1,0 +1,53 @@
+---
+- hosts: SQL
+  become: yes
+
+  vars: 
+    sql_pass: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          36333336363231363539633561346161616465393761656633626238653132653336653766646539
+          6663343239646635346566306135633965356130646336650a363362313839373965623465323161
+          61386430346536326137363035663235616663323334306637306130643363313762316631333763
+          3339323235643766350a383563393337373336396334653666383364653932343166336262313566
+          6136
+
+
+
+  tasks:
+  - name: Install MySQL-python
+    pip: 
+      name: PyMySQL 
+      state: present
+
+  - name: Creating sql user
+    mysql_user:
+      name: Testuser
+      password: 123
+      priv: "*.*:ALL,GRANT"
+      login_user: root
+      login_password: "{{  sql_pass  }}"
+  
+  - name: create a new database
+    mysql_db: 
+      name: testdb 
+      state: present
+      login_user: root
+      login_password: "{{  sql_pass  }}"
+    
+  - name: add sample to database
+    copy: 
+      src: Sample-data.sql 
+      dest: /tmp/Sample-data.sql
+    
+  - name: insert sample data
+    
+    #shell: mysql -h 127.0.0.1 -u root -P3306 -p "{{  sql_pass  }}" testdb < /tmp/Sample-data.sql
+    mysql_db: 
+      name: testdb 
+      state: import 
+      target: /tmp/Sample-data.sql
+      login_host: 127.0.0.1
+      login_user: root
+      login_password: "{{  sql_pass  }}"
+      unsafe_login_password: yes
+      force: yes

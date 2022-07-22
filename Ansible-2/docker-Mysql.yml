@@ -1,0 +1,46 @@
+---
+- hosts: SQL
+  become: yes
+
+  vars:
+    docker_volume: db_data1
+    docker_network: ansible_net1
+    db_name: db1
+
+  tasks:
+  - name: Creating network
+    docker_network: 
+      name: ansible_net1
+
+  - name: Launch Container 
+    docker_container:
+      name: "{{ db_name }}"
+      image: mysql
+      volumes:
+        - "{{ docker_volume }}:/var/lib/mysql:rw"
+      restart: yes
+      networks:
+        - name: "{{ docker_network }}"
+      env:
+        MYSQL_ROOT_PASSWORD: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          36333336363231363539633561346161616465393761656633626238653132653336653766646539
+          6663343239646635346566306135633965356130646336650a363362313839373965623465323161
+          61386430346536326137363035663235616663323334306637306130643363313762316631333763
+          3339323235643766350a383563393337373336396334653666383364653932343166336262313566
+          6136
+
+        MYSQL_DATABASE: Data_base
+        MYSQL_USER: datauser
+        MYSQL_PASSWORD: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          36333336363231363539633561346161616465393761656633626238653132653336653766646539
+          6663343239646635346566306135633965356130646336650a363362313839373965623465323161
+          61386430346536326137363035663235616663323334306637306130643363313762316631333763
+          3339323235643766350a383563393337373336396334653666383364653932343166336262313566
+          6136
+
+
+      ports: 
+        - "3306:3306"
+      state: started
